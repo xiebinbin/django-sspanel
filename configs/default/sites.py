@@ -10,7 +10,7 @@ START_PORT = 1024
 ALLOWED_HOSTS = ["*"]
 
 # 网站域名设置（请正确填写，不然订阅功能会失效：
-HOST = os.getenv("HOST", "http://0.0.0.0:8000")
+HOST = os.getenv("HOST", "http://144.202.95.76:80")
 
 # 网站密钥
 SECRET_KEY = os.getenv("SECRET_KEY", "aasdasdas")
