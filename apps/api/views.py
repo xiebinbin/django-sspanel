@@ -31,6 +31,12 @@ from apps.utils import (
     traffic_format,
 )
 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 
 class SystemStatusView(View):
     @method_decorator(permission_required("sspanel"))
@@ -342,3 +348,43 @@ def ailpay_callback(request):
         return HttpResponse("success")
     else:
         return HttpResponse("failure")
+
+
+# @api_view(['GET'])
+# @authentication_classes([SessionAuthentication, BasicAuthentication])
+# @permission_classes([IsAuthenticated])
+def nodes_index(request):
+    print(request.user)
+    nodes = []
+    return JsonResponse({
+        'code': 200,
+        'message': 'success',
+        'data': {
+            'nodes': nodes
+        }
+    })
+
+
+class NodesApiView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, format=None):
+        nodes = []
+        # user = {
+        #     'id': request.user.vmess_uuid,
+        #     'name': request.user.username,
+        #     'expired_at': request.user.level_expire_time
+        # }
+        for node in VmessNode.get_user_active_nodes(request.user):
+            nodes.append({
+                'address': node.get_vmess_link(request.user),
+                'like': 0
+            })
+        return JsonResponse({
+            'code': 200,
+            'message': 'success',
+            'data': {
+                'nodes': nodes
+            }
+        })

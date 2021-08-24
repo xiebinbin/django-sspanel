@@ -7,4 +7,5 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("admin/", admin.site.urls, name="admin"),
     path("prom/", include("django_prometheus.urls")),
+    path('api-auth/', include('rest_framework.urls')),
 ]

@@ -1,6 +1,10 @@
 from django.urls import path
 
 from . import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 app_name = "api"
 urlpatterns = [
@@ -60,4 +64,11 @@ urlpatterns = [
         views.UserTrafficChartView.as_view(),
         name="user_traffic_chart",
     ),
+    path(
+        'nodes/index',
+        views.NodesApiView.as_view(),
+        name='nodes'
+    ),
+    path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
 ]
