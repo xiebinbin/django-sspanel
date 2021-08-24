@@ -8,7 +8,7 @@ if os.getenv("DJANGO_ENV") != "ci":
             "NAME": "sspanel",
             "PASSWORD": os.getenv("MYSQL_PASSWORD", "V587666"),
             "HOST": os.getenv("MYSQL_HOST", "127.0.0.1"),
-            "USER": os.getenv("MYSQL_USER", "vpn"),
+            "USER": os.getenv("MYSQL_USER", "root"),
             "OPTIONS": {
                 "autocommit": True,
                 "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
