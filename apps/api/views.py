@@ -406,11 +406,6 @@ class NodesApiView(APIView):
 
     def get(self, request, format=None):
         nodes = []
-        # user = {
-        #     'id': request.user.vmess_uuid,
-        #     'name': request.user.username,
-        #     'expired_at': request.user.level_expire_time
-        # }
         for node in VmessNode.get_user_active_nodes(request.user):
             nodes.append({
                 'address': node.get_vmess_link(request.user),
